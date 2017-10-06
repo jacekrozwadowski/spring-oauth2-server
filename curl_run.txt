@@ -1,0 +1,55 @@
+sh
+
+##OK
+wersj 1
+./curl.exe -vu prodClientIdPassword:secret http://localhost:8081/spring-oauth2-server/oauth/token -H "Accept: application/json" \
+-d "password=nimda&username=admin&grant_type=password&client_secret=secret&client_id=prodClientIdPassword"
+
+wersj 2
+./curl.exe -v http://localhost:8081/spring-oauth2-server/oauth/token -H "Accept: application/json" \
+-H "Content-type: application/x-www-form-urlencoded; charset=utf-8" -H "Authorization: Basic "cHJvZENsaWVudElkUGFzc3dvcmQ6c2VjcmV0"" \
+-d "password=nimda&username=admin&grant_type=password"
+
+
+"access_token":   2e9dd652-f046-4e53-93d7-68c6c993af65
+
+
+#PROD
+./curl.exe -H "Authorization: Bearer "2e9dd652-f046-4e53-93d7-68c6c993af65"" -H 'Content-Type: application/json' \
+-X GET  http://localhost:8082/spring-oauth2-ws/prods
+
+./curl.exe -H "Authorization: Bearer "2e9dd652-f046-4e53-93d7-68c6c993af65"" -H 'Content-Type: application/json' \
+-X GET  http://localhost:8082/spring-oauth2-ws/prods/1
+
+./curl.exe -H "Authorization: Bearer "2e9dd652-f046-4e53-93d7-68c6c993af65"" -H 'Content-Type: application/json' \
+-X POST  http://localhost:8082/spring-oauth2-ws/prods -d '{"id":"2","name":"Second prod", "price":"0.99", "status":"Active"}'
+
+#CLIENT
+
+./curl.exe -vu cliClientIdPassword:secret http://localhost:8081/spring-oauth2-server/oauth/token -H "Accept: application/json" \
+-d "password=nimda&username=admin&grant_type=password&client_secret=secret&client_id=cliClientIdPassword"
+
+"access_token":   6dce4f64-9421-498d-a378-72744b5242bd
+
+./curl.exe -H "Authorization: Bearer "6dce4f64-9421-498d-a378-72744b5242bd"" -H 'Content-Type: application/json' \
+-X GET  http://localhost:8082/spring-oauth2-ws/clients
+
+./curl.exe -H "Authorization: Bearer "6dce4f64-9421-498d-a378-72744b5242bd"" -H 'Content-Type: application/json' \
+-X GET  http://localhost:8082/spring-oauth2-ws/clients/1
+
+./curl.exe -H "Authorization: Bearer "6dce4f64-9421-498d-a378-72744b5242bd"" -H 'Content-Type: application/json' \
+-X POST  http://localhost:8082/spring-oauth2-ws/clients -d '{"id":"2","name":"Second client", "status":"Active"}'
+
+
+
+./curl.exe -vu cliClientIdPassword:secret http://localhost:8081/spring-oauth2-server/oauth/token -H "Accept: application/json" \
+-d "password=pass&username=user1&grant_type=password&client_secret=secret&client_id=cliClientIdPassword"
+
+"access_token":   b9ca2bfb-6f3e-4a66-9964-223e8d3f2560
+
+./curl.exe -H "Authorization: Bearer "b9ca2bfb-6f3e-4a66-9964-223e8d3f2560"" -H 'Content-Type: application/json' \
+-X GET  http://localhost:8082/spring-oauth2-ws/clients
+
+./curl.exe -H "Authorization: Bearer "b9ca2bfb-6f3e-4a66-9964-223e8d3f2560"" -H 'Content-Type: application/json' \
+-X POST  http://localhost:8082/spring-oauth2-ws/clients -d '{"id":"3","name":"Third client", "status":"Active"}'
+
