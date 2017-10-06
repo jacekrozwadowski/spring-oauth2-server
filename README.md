@@ -1,6 +1,6 @@
-# Spring Boot OAuth2 Authentication server
+# Spring Boot OAuth2 Authentication server. Part -1-
 
-Project shows how to create OAuth2 authentication server
+Project shows how to create OAuth2 authentication server.
 
 Main features
 - OAuth2 server features
